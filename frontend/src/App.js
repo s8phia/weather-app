@@ -10,7 +10,12 @@ function App() {
   const [inputCity, setInputCity] = useState("");
   const [inputCountry, setInputCountry] = useState("");
   const [inputRegion, setInputRegion] = useState("");
+  const [showWeather, setShowWeather] = useState(false); //show-hide form
   
+  const winterBase = ["Long pants", " Puffer Jacket", "Winter boots", "Gloves"];
+  const chillyBase= ["Long pants", "longsleeve shirt", "Thin Jacket", "Sneakers"];
+  const somewhatColdBase = ["Long pants", "T-shirt", "Sneakers"];
+  const warmWeatherBase = ["Shorts", "T-shirt", "Sneakers"];
 
   useEffect(() => {
     axios.get('http://localhost:5000/weather', { params: { city, country, region } })
@@ -28,8 +33,67 @@ function App() {
     setInputCity("");
     setInputCountry("");
     setInputRegion("");
+
+    setShowWeather(true);
   };
 
+  const handleback = (e) => {
+    e.preventDefault();
+    setShowWeather(false);
+  }
+
+  const bringUmbrella = (condition) => {
+    if (!condition) return false;
+    return condition.toLowerCase().includes("rain") || condition.toLowerCase().includes("drizzle");
+  }
+
+  const bringSunglasses = (condition) => {
+    if (!condition) return false;
+    return condition.toLowerCase().includes("sun") || condition.toLowerCase().includes("clear");
+  }
+  const wearGlovesAndScarf = (temperature, condition) => {
+    if (temperature < 10 || (condition && condition.toLowerCase().includes('snow'))) {
+      return true;
+    }
+    return false;
+  };
+
+  const wearHat = (temperature, condition) => {
+    if (temperature < 0 || (condition && condition.toLowerCase().includes('snow'))) {
+      return true;
+    }
+    return false;
+  };
+
+  const suggestOutfit = (temperature, condition) => {
+    let outfit = [];
+
+    if (temperature >= 17) {
+      outfit = [...warmWeatherBase];
+    } else if (temperature < 17 && temperature > 10){
+      outfit = [...chillyBase];
+    }
+    else if (temperature >= 10) {
+      outfit = [...somewhatColdBase];
+    } else {
+      outfit = [...winterBase];
+    }
+
+    if (bringUmbrella(condition)) {
+      outfit.push("Umbrella");
+    }
+    if (bringSunglasses(condition)) {
+      outfit.push("Sunglasses");
+    }
+    if (wearGlovesAndScarf(temperature, condition)) {
+      outfit.push("Gloves", "Scarf");
+    }
+    if (wearHat(temperature, condition)) {
+      outfit.push("Hat");
+    }
+
+    return outfit;
+  };
 
   return (
     <div style={{ padding: '20px' }}>
