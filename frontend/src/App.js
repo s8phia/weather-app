@@ -96,51 +96,54 @@ function App() {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>
-        {weather
-          ? `${weather.city}, ${weather.region}, ${weather.country}, ${weather.temperature}, ${weather.condition}`
-          : "Loading..."}
-      </h1>
-      
-      <form onSubmit={handleSubmit} style={{ marginTop: '20px' }}>
-        <div style={{ marginBottom: '10px' }}>
-          <label htmlFor="city">City: </label>
-          <input
-            id="city"
-            type="text"
-            value={inputCity}
-            onChange={(e) => setInputCity(e.target.value)}
-            placeholder="Enter city"
-          />
+    <div className = "bg-frontPage min-h-screen flex flex-col items-center justify-center">
+      {showWeather ? (
+        // This is shown when showWeather is true
+        <div>
+          <h1>{weather.city}, {weather.region}, {weather.country}</h1>
+          <h2>{weather.temperature}</h2>
+          <h3>{weather.condition}</h3>
+          <button onClick = {() => setShowWeather(false)}>Back</button>
         </div>
-        
-        <div style={{ marginBottom: '10px' }}>
-          <label htmlFor="region">Region: </label>
-          <input
-            id="region"
-            type="text"
-            value={inputRegion}
-            onChange={(e) => setInputRegion(e.target.value)}
-            placeholder="Enter region/state"
-          />
-        </div>
-        
-        <div style={{ marginBottom: '10px' }}>
-          <label htmlFor="country">Country: </label>
-          <input
-            id="country"
-            type="text"
-            value={inputCountry}
-            onChange={(e) => setInputCountry(e.target.value)}
-            placeholder="Enter country"
-          />
-        </div>
-        
-        <button type="submit">Get Weather</button>
-      </form>
+      ) : (
+        // This is shown when showWeather is false (form view)
+        <form onSubmit = {handleSubmit}>
+          <div>
+            <label htmlFor = "city">City:</label>
+            <input
+              className="bg-transparent"
+              type ="text"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              placeholder='Enter city'
+              />
+          </div>
+          <div>
+            <label htmlFor = "region">Region:</label>
+            <input
+              className="bg-transparent"
+              type ="text"
+              value={region}
+              onChange={(e) => setRegion(e.target.value)}
+              placeholder='Enter region'
+              />
+          </div>
+          <div>
+            <label htmlFor = "country">Country:</label>
+            <input
+              className='bg-transparent'
+              type ="text"
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+              placeholder='Enter country'
+              />
+          </div>
+          <button type = "submit">Get Weather</button>
+        </form>
+      )}
     </div>
   );
+  
 }
 
 export default App;
