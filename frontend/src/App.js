@@ -12,10 +12,10 @@ function App() {
   const [inputRegion, setInputRegion] = useState("");
   const [showWeather, setShowWeather] = useState(false); //show-hide form
   
-  const winterBase = ["Long pants", " Puffer Jacket", "Winter boots", "Gloves"];
-  const chillyBase= ["Long pants", "longsleeve shirt", "Thin Jacket", "Sneakers"];
-  const somewhatColdBase = ["Long pants", "T-shirt", "Sneakers"];
-  const warmWeatherBase = ["Shorts", "T-shirt", "Sneakers"];
+  const winterBase = ["Long pants", " Puffer Jacket", " Winter boots", " Gloves"];
+  const chillyBase= ["Long pants", " longsleeve shirt", " Thin Jacket", " Sneakers"];
+  const somewhatColdBase = ["Long pants", " longsleeve shirt", " Sneakers"];
+  const warmWeatherBase = ["Shorts", " T-shirt", " Sneakers"];
 
   useEffect(() => {
     axios.get('http://localhost:5000/weather', { params: { city, country, region } })
@@ -66,18 +66,19 @@ function App() {
   };
 
   const suggestOutfit = (temperature, condition) => {
+    const temp = parseFloat(temperature);
     let outfit = [];
 
-    if (temperature >= 17) {
+    if (temp >= 17) {
       outfit = [...warmWeatherBase];
-    } else if (temperature < 17 && temperature > 10){
+    } else if (temp >= 11) {
       outfit = [...chillyBase];
-    }
-    else if (temperature >= 10) {
+    } else if (temp >= 5) {
       outfit = [...somewhatColdBase];
     } else {
       outfit = [...winterBase];
     }
+    
 
     if (bringUmbrella(condition)) {
       outfit.push("Umbrella");
@@ -103,6 +104,7 @@ function App() {
           <h1>{weather.city}, {weather.region}, {weather.country}</h1>
           <h2>{weather.temperature}</h2>
           <h3>{weather.condition}</h3>
+          <h4>{suggestOutfit(weather.temperature, weather.condition)}</h4>
           <button onClick = {() => setShowWeather(false)}>Back</button>
         </div>
       ) : (
