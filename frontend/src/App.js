@@ -13,8 +13,8 @@ function App() {
   const [showWeather, setShowWeather] = useState(false); //show-hide form
   
   const winterBase = ["Long pants", " Puffer Jacket", " Winter boots", " Gloves"];
-  const chillyBase= ["Long pants", " longsleeve shirt", " Thin Jacket", " Sneakers"];
-  const somewhatColdBase = ["Long pants", " longsleeve shirt", " Sneakers"];
+  const chillyBase= ["Long pants", " longsleeve shirt", "Thin Jacket", "Sneakers"];
+  const somewhatColdBase = ["Long pants", " t-shirt", " Sneakers"];
   const warmWeatherBase = ["Shorts", " T-shirt", " Sneakers"];
 
   useEffect(() => {
@@ -72,9 +72,9 @@ function App() {
     if (temp >= 17) {
       outfit = [...warmWeatherBase];
     } else if (temp >= 11) {
-      outfit = [...chillyBase];
-    } else if (temp >= 5) {
       outfit = [...somewhatColdBase];
+    } else if (temp >= 5) {
+      outfit = [...chillyBase];
     } else {
       outfit = [...winterBase];
     }
@@ -97,14 +97,23 @@ function App() {
   };
 
   return (
-    <div className = "bg-frontPage min-h-screen flex flex-col items-center justify-center">
+    
+    <div className = "bg-frontPage min-h-screen flex flex-col items-center justify-start pt-10">
+      <div className="flex justify-center mt-100 ">
+        <img src="/images/weartherTitle.png" alt="Weather Title" className="w-200 h-auto" />
+      </div>
       {showWeather ? (
         // This is shown when showWeather is true
-        <div>
+        <div className = "text-center">
           <h1>{weather.city}, {weather.region}, {weather.country}</h1>
           <h2>{weather.temperature}</h2>
           <h3>{weather.condition}</h3>
-          <h4>{suggestOutfit(weather.temperature, weather.condition)}</h4>
+          <h4 className="font-bold mt-4">Suggested Outfit:</h4>
+          <ul className="list-disc list-inside">
+            {suggestOutfit(weather.temperature, weather.condition).map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+          </ul>
           <button onClick = {() => setShowWeather(false)}>Back</button>
         </div>
       ) : (
