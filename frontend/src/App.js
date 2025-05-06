@@ -101,13 +101,14 @@ function App() {
       <img
         src="/images/weartherTitle.png"
         alt="Weather Title"
-        className="absolute top-1 left-1/2 transform -translate-x-1/2 w-100 h-auto"
+        className="absolute top-2 left-1/2 transform -translate-x-1/2 w-50 h-auto z-10 mt-[-20px]"
       />
+
       {!showWeather && (
         <img
           src="/images/rectangle1.png"
           alt="form rectangle"
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/3 w-100 h-auto"
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] md:w-[400px] h-auto z-0"
         />
       )}
 
