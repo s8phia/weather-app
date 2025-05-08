@@ -104,13 +104,7 @@ function App() {
         className="absolute top-2 left-1/2 transform -translate-x-1/2 w-50 h-auto z-10 mt-[-20px]"
       />
 
-      {!showWeather && (
-        <img
-          src="/images/rectangle1.png"
-          alt="form rectangle"
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] md:w-[400px] h-auto z-0"
-        />
-      )}
+      
 
       <div className="flex flex-col items-center z-10 relative p-6">
         {showWeather ? (
@@ -129,42 +123,81 @@ function App() {
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="city">City:</label>
+        <div
+          style={{
+            backgroundImage: 'url("/images/rectangle1.png")',
+            backgroundSize: 'contain',        
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            width: '500px',                   
+            height: '450px',                           
+          }}
+          className="flex flex-col items-center justify-center"
+        >
+
+          <form id = "weatherform"className="flex flex-col align-items" onSubmit={handleSubmit}>
+            <div className= "">
+              <img src="/images/City.png" alt = "City" className = "mb-3"/>
               <input
-                className="bg-transparent"
                 type="text"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                placeholder="Enter city"
-              />
+                placeholder=""
+                className="bg-transparent pl-4 pr-4 py-2 w-[200px] h-[60px] border-none outline-none text-black text-lg"
+                style={{
+                  backgroundImage: 'url("/images/textbox 1.png")',
+                  backgroundSize: '100% 100%',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat'
+                }}
+              />  
             </div>
             <div>
-              <label htmlFor="region">Region:</label>
+              <img src = "/images/Region.png" alt = "Region" className = "mb-3"/>
               <input
-                className="bg-transparent"
                 type="text"
                 value={region}
                 onChange={(e) => setRegion(e.target.value)}
-                placeholder="Enter region"
+                placeholder=""
+                className="bg-transparent pl-4 pr-4 py-2 w-[200px] h-[60px] border-none outline-none text-black text-lg"
+                style={{
+                  backgroundImage: 'url("/images/textbox 1.png")',
+                  backgroundSize: '100% 100%',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat'
+                }}
               />
             </div>
             <div>
-              <label htmlFor="country">Country:</label>
+              <img src = "/images/Country.png" alt = "Country" className = ""/>
               <input
-                className="bg-transparent"
                 type="text"
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
-                placeholder="Enter country"
+                placeholder=""
+                className="bg-transparent pl-4 pr-4 py-2 w-[200px] h-[60px] border-none outline-none text-black text-lg"
+                style={{
+                  backgroundImage: 'url("/images/textbox 1.png")',
+                  backgroundSize: '100% 100%',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat'
+                }}
               />
             </div>
-            <button type="submit">
-              Get Weather
-            </button>
           </form>
+          </div>
         )}
+      </div>
+      <div>
+      {!showWeather && (
+        <input
+          type="image"
+          src="/images/READY.png"
+          alt="Submit"
+          form="weatherform"
+          className="mt-6 w-[200px] h-auto"
+        />
+      )}
       </div>
     </div>
   );
